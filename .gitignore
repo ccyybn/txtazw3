@@ -12,3 +12,6 @@ build/
 # IDEA
 out/
 classes
+gradle/
+gradlew
+gradlew.bat

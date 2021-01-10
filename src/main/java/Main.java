@@ -19,21 +19,21 @@ public class Main {
     private static int titleIdInc = 1;
 
     public static void main(String[] args) throws IOException {
-//        Console console = System.console();
-//        if (console == null && !GraphicsEnvironment.isHeadless()) {
-//            String filename = Main.class.getProtectionDomain().getCodeSource().getLocation().toString().substring(6);
-//            Runtime.getRuntime().exec(new String[]{"cmd", "/c", "start", "cmd", "/k", "java -jar \"" + filename + "\""});
-//        } else {
-//            convert();
-//            System.out.println("Program has ended, please type 'exit' to close the console");
-//        }
-        convert();
-        System.exit(0);
+        Console console = System.console();
+        if (console == null && !GraphicsEnvironment.isHeadless()) {
+            String filename = Main.class.getProtectionDomain().getCodeSource().getLocation().toString().substring(6);
+            Runtime.getRuntime().exec(new String[]{"cmd", "/c", "start", "cmd", "/k", "java -jar \"" + filename + "\""});
+        } else {
+            convert();
+            System.out.println("Program has ended, please type 'exit' to close the console");
+        }
+//        convert();
+//        System.exit(0);
     }
 
     private static void convert() throws IOException {
-//        String workingPath = System.getProperty("user.dir");
-        String workingPath = "D:\\Code\\git\\other\\txtazw3\\classes\\artifacts\\txtazw3_jar";
+        String workingPath = System.getProperty("user.dir");
+//        String workingPath = "D:\\Code\\git\\other\\txtazw3\\classes\\artifacts\\txtazw3_jar";
         System.out.println("working path: " + workingPath);
         File workingFolder = new File(workingPath);
         File[] files = workingFolder.listFiles();
