@@ -27,5 +27,7 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
-    compile group: 'com.googlecode.juniversalchardet', name: 'juniversalchardet', version: '1.0.3'
+    compile 'com.googlecode.juniversalchardet:juniversalchardet:1.0.3'
+    compile 'com.ibm.icu:icu4j:70.1'
+    compile 'com.google.guava:guava:31.0.1-jre'
 }

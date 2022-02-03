@@ -11,10 +11,10 @@ import java.util.stream.Collectors;
 public class Main {
     private static final List<String> titleSuffix = List.of("卷", "部", "章", "节");
     private static final List<Pattern> titlePattern = titleSuffix.stream()
-            .map(s -> Pattern.compile("^第([\\u4e00-\\u9fa5\\u767e\\u5343\\u96f6\\d]{1,10})" + s + "\\s+(.+)$"))
+            .map(s -> Pattern.compile("^第([\\u4e00-\\u9fa5\\u767e\\u5343\\u96f6\\d]{1,10})(" + s + ")\\s+(.+)$"))
             .collect(Collectors.toList());
     private static final List<Pattern> titleEmptyPattern = titleSuffix.stream()
-            .map(s -> Pattern.compile("^第([\\u4e00-\\u9fa5\\u767e\\u5343\\u96f6\\d]{1,10})" + s + "$"))
+            .map(s -> Pattern.compile("^第([\\u4e00-\\u9fa5\\u767e\\u5343\\u96f6\\d]{1,10})(" + s + ")$"))
             .collect(Collectors.toList());
     private static int titleIdInc = 1;
 
@@ -33,7 +33,7 @@ public class Main {
 
     private static void convert() throws IOException {
         String workingPath = System.getProperty("user.dir");
-//        String workingPath = "D:\\Code\\git\\other\\txtazw3\\classes\\artifacts\\txtazw3_jar";
+//        String workingPath = "D:\\Code\\git\\github\\txtazw3";
         System.out.println("working path: " + workingPath);
         File workingFolder = new File(workingPath);
         File[] files = workingFolder.listFiles();
@@ -134,15 +134,16 @@ public class Main {
                 try {
                     int groupCount = matcher.groupCount();
                     String titleName = "";
-                    if (groupCount > 1) {
-                        titleName = matcher.group(2);
+                    if (groupCount > 2) {
+                        titleName = matcher.group(3);
                     } else {
                         System.out.println();
                         System.out.println("Empty title: " + line);
                         System.out.println();
                     }
                     int index = ChineseNum.convert(matcher.group(1));
-                    return new Title(titleIdInc++, i, titleName, index, line);
+                    String suffix = matcher.group(2);
+                    return new Title(titleIdInc++, i, titleName, index, line, suffix);
                 } catch (Exception e) {
                     System.err.println("无法解析标题: " + line);
                     e.printStackTrace();
